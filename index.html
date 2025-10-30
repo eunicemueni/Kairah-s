@@ -17,215 +17,188 @@
 <!-- Favicon -->
 <link rel="icon" href="https://cdn.kairahstudio.com/favicon.ico" type="image/x-icon" />
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
-<!-- CSS Reset & Styling -->
-<style>
-body { margin:0; font-family:'Roboto', sans-serif; background:#111; color:#fff; }
-h1,h2,h3,h4 { font-family:'Playfair Display', serif; color:#D4AF37; }
-a { color:#D4AF37; text-decoration:none; }
-.container { width:90%; max-width:1200px; margin:auto; }
-.plan-card { background:#222; padding:20px; margin:10px; border-radius:10px; display:inline-block; vertical-align:top; width:220px; text-align:left; }
-button { background:#D4AF37; color:#111; border:none; padding:10px 20px; cursor:pointer; border-radius:5px; margin-top:10px; }
-.hidden { display:none; }
-.tabs { display:flex; justify-content:center; cursor:pointer; margin-bottom:20px; }
-.tab { padding:10px 20px; border:1px solid #D4AF37; margin-right:5px; border-radius:5px; }
-.tab.active { background:#D4AF37; color:#111; }
-.tab-content { margin-top:20px; }
-.prompt-input { width:100%; padding:15px; border-radius:5px; border:none; margin-bottom:10px; }
-.video-gallery { display:flex; flex-wrap:wrap; margin-top:20px; }
-.video-card { width:300px; margin:10px; }
-.video-card video { width:100%; border-radius:10px; }
-.faq-item h4 { cursor:pointer; background:#222; padding:10px; border-radius:5px; margin-bottom:5px; }
-.faq-answer { padding:10px; background:#333; border-radius:5px; display:none; margin-bottom:10px; }
-footer { text-align:center; padding:20px; background:#111; margin-top:50px; }
-.btn-gold { background:#D4AF37; color:#111; }
-.payment-icons img { width:50px; margin:5px; vertical-align:middle; }
-</style>
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
 
 </head>
-<body>
+<body class="bg-black text-white font-roboto">
 
-<!-- Header -->
-<header style="padding:20px; display:flex; justify-content:space-between; background:#111; align-items:center;">
-  <h1>Kairah Studio</h1>
-  <button onclick="showAuthModal()">Sign Up / Login</button>
+<!-- Header & Hero -->
+<header class="bg-deep-plum p-6 flex justify-between items-center">
+  <h1 class="text-3xl font-playfair text-gold">Kairah Studio</h1>
+  <button onclick="showAuthModal()" class="bg-gold text-black px-4 py-2 rounded">Sign Up / Login</button>
 </header>
+<section class="bg-gradient-to-b from-deep-plum to-black p-12 text-center">
+  <h2 class="text-4xl font-playfair mb-4 text-gold">Divine Cinematics by AI</h2>
+  <p class="mb-6">Generate cinematic AI videos, audios, and animations effortlessly. Unlock Fame Booster for viral growth.</p>
+  <button onclick="showAuthModal()" class="bg-gold text-black px-6 py-3 rounded text-lg">Get Started</button>
+</section>
 
 <!-- Auth Modal -->
-<div id="signup-login-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;z-index:1000;">
-  <div style="background:#111;padding:40px;border-radius:10px;width:350px;color:#fff;position:relative;">
-    <button style="position:absolute;top:10px;right:10px;background:#333;color:#D4AF37;padding:5px 10px;border-radius:5px;" onclick="closeAuthModal()">X</button>
-    <h3 id="modal-title">Sign Up</h3>
-    <input type="email" id="auth-email" placeholder="Email" style="width:100%;padding:10px;margin-bottom:10px;border-radius:5px;border:none;">
-    <input type="password" id="auth-password" placeholder="Password" style="width:100%;padding:10px;margin-bottom:10px;border:none;">
-    <button id="auth-submit" class="btn-gold" style="width:100%;">Sign Up</button>
-    <p style="margin-top:10px;text-align:center;">
-        <span id="toggle-auth" style="cursor:pointer;color:#D4AF37;">Switch to Login</span>
-    </p>
+<div id="signup-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50">
+  <div class="bg-black p-10 rounded-xl w-96 relative text-white">
+    <button onclick="closeAuthModal()" class="absolute top-4 right-4 bg-gray-800 text-gold px-2 py-1 rounded">X</button>
+    <h3 id="modal-title" class="text-2xl mb-4">Sign Up</h3>
+    <input type="email" id="auth-email" placeholder="Email" class="w-full p-3 mb-3 rounded bg-gray-900 border-none" />
+    <input type="password" id="auth-password" placeholder="Password" class="w-full p-3 mb-3 rounded bg-gray-900 border-none" />
+    <button id="auth-submit" class="bg-gold text-black w-full p-3 rounded mb-2">Sign Up</button>
+    <p class="text-center"> <span id="toggle-auth" class="cursor-pointer text-gold">Switch to Login</span> </p>
   </div>
 </div>
 
 <!-- Plans Section -->
-<section id="plans" class="container" style="padding:50px 0; text-align:center;">
-<h2>Choose Your Plan</h2>
-<div>
-  <div class="plan-card">
-    <h3>Free</h3>
-    <ul>
-      <li>1 video</li>
-      <li>Max 6 seconds</li>
-      <li>No Fame Booster</li>
-    </ul>
-    <button onclick="togglePayments('free')">Select</button>
-    <div class="payment-icons hidden" id="free-payments"></div>
-  </div>
-  <div class="plan-card">
-    <h3>Pro</h3>
-    <ul>
-      <li>10 videos/month</li>
-      <li>Max 60 seconds</li>
-      <li>No Fame Booster</li>
-    </ul>
-    <button onclick="togglePayments('pro')">Buy Now</button>
-    <div class="payment-icons hidden" id="pro-payments">
-      <img src="mpesa_icon.png" alt="MPesa">
-      <img src="wise_icon.png" alt="Wise">
-      <img src="paypal_icon.png" alt="PayPal">
-      <img src="visa_icon.png" alt="Visa">
-      <img src="mastercard_icon.png" alt="MasterCard">
+<section id="plans" class="container mx-auto py-16 text-center">
+  <h2 class="text-3xl font-playfair text-gold mb-8">Choose Your Plan</h2>
+  <div class="flex flex-wrap justify-center gap-6">
+
+    <!-- Free Plan -->
+    <div class="bg-gray-900 p-6 rounded-xl w-64">
+      <h3 class="text-xl font-bold mb-2">Free</h3>
+      <ul class="mb-4 text-left">
+        <li>1 video</li>
+        <li>Max 6 seconds</li>
+        <li>No Fame Booster</li>
+      </ul>
+      <button onclick="togglePayments('free')" class="bg-gold text-black px-4 py-2 rounded w-full">Select</button>
+      <div id="free-payments" class="hidden flex justify-center mt-3 space-x-2"></div>
     </div>
-  </div>
-  <div class="plan-card">
-    <h3>Diamond</h3>
-    <ul>
-      <li>Unlimited videos</li>
-      <li>Max 180 seconds</li>
-      <li>Fame Booster included</li>
-    </ul>
-    <button onclick="togglePayments('diamond')">Buy Now</button>
-    <div class="payment-icons hidden" id="diamond-payments">
-      <img src="mpesa_icon.png" alt="MPesa">
-      <img src="wise_icon.png" alt="Wise">
-      <img src="paypal_icon.png" alt="PayPal">
-      <img src="visa_icon.png" alt="Visa">
-      <img src="mastercard_icon.png" alt="MasterCard">
+
+    <!-- Pro Plan -->
+    <div class="bg-gray-900 p-6 rounded-xl w-64">
+      <h3 class="text-xl font-bold mb-2">Pro</h3>
+      <ul class="mb-4 text-left">
+        <li>10 videos/month</li>
+        <li>Max 60 seconds</li>
+        <li>No Fame Booster</li>
+      </ul>
+      <button onclick="togglePayments('pro')" class="bg-gold text-black px-4 py-2 rounded w-full">Buy Now</button>
+      <div id="pro-payments" class="hidden flex justify-center mt-3 space-x-2">
+        <img src="mpesa_icon.png" alt="MPesa" class="w-10">
+        <img src="wise_icon.png" alt="Wise" class="w-10">
+        <img src="paypal_icon.png" alt="PayPal" class="w-10">
+        <img src="visa_icon.png" alt="Visa" class="w-10">
+        <img src="mastercard_icon.png" alt="MasterCard" class="w-10">
+      </div>
     </div>
-  </div>
-  <div class="plan-card">
-    <h3>Cinematic</h3>
-    <ul>
-      <li>Unlimited videos</li>
-      <li>Max 300 seconds</li>
-      <li>Fame Booster included</li>
-    </ul>
-    <button onclick="togglePayments('cinematic')">Buy Now</button>
-    <div class="payment-icons hidden" id="cinematic-payments">
-      <img src="mpesa_icon.png" alt="MPesa">
-      <img src="wise_icon.png" alt="Wise">
-      <img src="paypal_icon.png" alt="PayPal">
-      <img src="visa_icon.png" alt="Visa">
-      <img src="mastercard_icon.png" alt="MasterCard">
+
+    <!-- Diamond Plan -->
+    <div class="bg-gray-900 p-6 rounded-xl w-64">
+      <h3 class="text-xl font-bold mb-2">Diamond</h3>
+      <ul class="mb-4 text-left">
+        <li>Unlimited videos</li>
+        <li>Max 180 seconds</li>
+        <li>Fame Booster included</li>
+      </ul>
+      <button onclick="togglePayments('diamond')" class="bg-gold text-black px-4 py-2 rounded w-full">Buy Now</button>
+      <div id="diamond-payments" class="hidden flex justify-center mt-3 space-x-2">
+        <img src="mpesa_icon.png" alt="MPesa" class="w-10">
+        <img src="wise_icon.png" alt="Wise" class="w-10">
+        <img src="paypal_icon.png" alt="PayPal" class="w-10">
+        <img src="visa_icon.png" alt="Visa" class="w-10">
+        <img src="mastercard_icon.png" alt="MasterCard" class="w-10">
+      </div>
     </div>
+
   </div>
-  <div class="plan-card">
-    <h3>Lifetime</h3>
-    <ul>
-      <li>Unlimited videos</li>
-      <li>Unlimited length</li>
-      <li>Fame Booster included</li>
-    </ul>
-    <button onclick="togglePayments('lifetime')">Buy Now</button>
-    <div class="payment-icons hidden" id="lifetime-payments">
-      <img src="mpesa_icon.png" alt="MPesa">
-      <img src="wise_icon.png" alt="Wise">
-      <img src="paypal_icon.png" alt="PayPal">
-      <img src="visa_icon.png" alt="Visa">
-      <img src="mastercard_icon.png" alt="MasterCard">
-    </div>
-  </div>
-</div>
 </section>
 
-<!-- Generate Media Tabs & Video Gallery -->
-<section id="generate" class="container" style="padding:50px 0;">
-<h2>Create AI Media</h2>
-<div class="tabs container">
-  <div class="tab active" data-target="text-video">Text to Video</div>
-  <div class="tab" data-target="image-video">Image to Video</div>
-  <div class="tab" data-target="audio">AI Audio</div>
-</div>
-<div id="text-video" class="tab-content">
-  <textarea class="prompt-input" id="text-video-prompt" placeholder="Enter your prompt"></textarea>
-  <label><input type="checkbox" id="fame-booster"> Fame Booster ($9)</label>
-  <button onclick="generateMedia('text-video')">Generate Video</button>
-</div>
-<div id="image-video" class="tab-content hidden">
-  <input type="file" id="image-input" accept="image/*"><br><br>
-  <label><input type="checkbox" id="image-fame-booster"> Fame Booster ($9)</label>
-  <button onclick="generateMedia('image-video')">Generate Video</button>
-</div>
-<div id="audio" class="tab-content hidden">
-  <textarea class="prompt-input" id="audio-prompt" placeholder="Enter text for audio"></textarea>
-  <label><input type="checkbox" id="audio-fame-booster"> Fame Booster ($9)</label>
-  <button onclick="generateMedia('audio')">Generate Audio</button>
-</div>
-<div class="video-gallery" id="video-gallery"></div>
+<!-- AI Media Generator -->
+<section id="generate" class="container mx-auto py-16">
+  <h2 class="text-3xl font-playfair text-gold text-center mb-8">Create AI Media</h2>
+  <div class="flex justify-center gap-4 mb-6">
+    <button data-target="text-video" class="tab active px-4 py-2 border border-gold rounded">Text to Video</button>
+    <button data-target="image-video" class="tab px-4 py-2 border border-gold rounded">Image to Video</button>
+    <button data-target="audio" class="tab px-4 py-2 border border-gold rounded">AI Audio</button>
+  </div>
+
+  <div id="text-video" class="tab-content">
+    <textarea id="text-video-prompt" placeholder="Enter your prompt" class="w-full p-4 mb-3 rounded bg-gray-900"></textarea>
+    <label><input type="checkbox" id="fame-booster"> Fame Booster ($9)</label>
+    <button onclick="generateMedia('text-video')" class="bg-gold text-black px-4 py-2 rounded mt-2">Generate Video</button>
+  </div>
+  <div id="image-video" class="tab-content hidden">
+    <input type="file" id="image-input" accept="image/*" class="mb-3" /><br>
+    <label><input type="checkbox" id="image-fame-booster"> Fame Booster ($9)</label>
+    <button onclick="generateMedia('image-video')" class="bg-gold text-black px-4 py-2 rounded mt-2">Generate Video</button>
+  </div>
+  <div id="audio" class="tab-content hidden">
+    <textarea id="audio-prompt" placeholder="Enter text for audio" class="w-full p-4 mb-3 rounded bg-gray-900"></textarea>
+    <label><input type="checkbox" id="audio-fame-booster"> Fame Booster ($9)</label>
+    <button onclick="generateMedia('audio')" class="bg-gold text-black px-4 py-2 rounded mt-2">Generate Audio</button>
+  </div>
+
+  <div id="video-gallery" class="flex flex-wrap gap-4 mt-6"></div>
 </section>
 
 <!-- FAQ Section -->
-<section id="faq" class="faq container" style="padding:50px 0;">
-<h2>Frequently Asked Questions</h2>
-<!-- FAQ items here (same as previous HTML) -->
+<section id="faq" class="container mx-auto py-16">
+  <h2 class="text-3xl font-playfair text-gold text-center mb-8">Frequently Asked Questions</h2>
+  <div class="space-y-4">
+    <div class="faq-item">
+      <h4 class="cursor-pointer bg-gray-800 p-3 rounded">1. What is Fame Booster?</h4>
+      <div class="faq-answer hidden bg-gray-900 p-3 rounded">Fame Booster is an AI-powered feature that optimizes your video to go viral by enhancing content appeal, captions, and metadata for social platforms.</div>
+    </div>
+    <div class="faq-item">
+      <h4 class="cursor-pointer bg-gray-800 p-3 rounded">2. How many free videos can I generate?</h4>
+      <div class="faq-answer hidden bg-gray-900 p-3 rounded">Free plan allows 1 high-quality video of up to 6 seconds per account/email to try the platform before subscribing.</div>
+    </div>
+    <div class="faq-item">
+      <h4 class="cursor-pointer bg-gray-800 p-3 rounded">3. How do I upgrade my plan?</h4>
+      <div class="faq-answer hidden bg-gray-900 p-3 rounded">You can select the desired plan under the 'Choose Your Plan' section and follow the integrated payment options to upgrade instantly.</div>
+    </div>
+    <!-- Add 7 more detailed FAQs here similarly -->
+  </div>
 </section>
 
-<!-- Settings & Privacy -->
-<section id="settings" class="container" style="padding:50px 0;">
-<h2>Settings & Privacy</h2>
-<p>Your account data is encrypted and secure. All payments are final and non-refundable. Kairah Studio does not share your personal information without consent. Use generated content responsibly. By using Kairah Studio, you agree to our Terms and Conditions.</p>
+<!-- Affiliate Section -->
+<section id="affiliate" class="container mx-auto py-16 text-center">
+  <h2 class="text-3xl font-playfair text-gold mb-6">Affiliate Program</h2>
+  <p>Share your referral link and earn rewards when your friends subscribe to any paid plan. Track your earnings and referrals in your account dashboard.</p>
+</section>
+
+<!-- Disclaimer Section -->
+<section id="disclaimer" class="container mx-auto py-16">
+  <h2 class="text-3xl font-playfair text-gold mb-4">Disclaimer</h2>
+  <p class="text-gray-400">Generated content is for personal or commercial use responsibly. Kairah Studio is not responsible for misuse of AI-generated media. All rights to the platform and content policies apply.</p>
 </section>
 
 <!-- Footer -->
-<footer>
+<footer class="bg-black p-6 text-center">
   <p>Contact: keishapoa@gmail.com | &copy; 2025 Kairah Studio</p>
 </footer>
 
 <!-- Scripts -->
 <script>
+// Payment toggling
 function togglePayments(plan){
-  const plans=['free','pro','diamond','cinematic','lifetime'];
-  plans.forEach(p=>{
+  ['free','pro','diamond'].forEach(p => {
     document.getElementById(p+'-payments').classList.add('hidden');
   });
   document.getElementById(plan+'-payments').classList.toggle('hidden');
 }
 
-// Tabs for media generation
-document.querySelectorAll('.tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c=>c.classList.add('hidden'));
+// Tab navigation
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
     tab.classList.add('active');
     document.getElementById(tab.dataset.target).classList.remove('hidden');
   });
 });
 
 // FAQ Accordion
-document.querySelectorAll('.faq-item h4').forEach(header=>{
-  header.addEventListener('click',()=>{
+document.querySelectorAll('.faq-item h4').forEach(header => {
+  header.addEventListener('click', () => {
     header.nextElementSibling.classList.toggle('hidden');
   });
 });
 
-// Auth Modal Functions
-function showAuthModal(){ document.getElementById('signup-login-modal').style.display='flex'; }
-function closeAuthModal(){ document.getElementById('signup-login-modal').style.display='none'; }
-document.getElementById('toggle-auth').addEventListener('click',()=>{
+// Auth Modal
+function showAuthModal(){ document.getElementById('signup-login-modal').classList.remove('hidden'); }
+function closeAuthModal(){ document.getElementById('signup-login-modal').classList.add('hidden'); }
+
+document.getElementById('toggle-auth').addEventListener('click', () => {
   const modalTitle = document.getElementById('modal-title');
   const submitBtn = document.getElementById('auth-submit');
   if(modalTitle.innerText==='Sign Up'){
@@ -237,14 +210,14 @@ document.getElementById('toggle-auth').addEventListener('click',()=>{
   }
 });
 
-// Video Generation Placeholder
+// Video generation placeholder
 function generateMedia(type){
   const gallery=document.getElementById('video-gallery');
   const videoUrl='https://cdn.kairahstudio.com/mock_videos/demo.mp4';
-  const card=document.createElement('div'); card.classList.add('video-card');
-  card.innerHTML=`<video src="${videoUrl}" controls></video>`;
+  const card=document.createElement('div'); card.classList.add('w-72'); card.classList.add('mb-4');
+  card.innerHTML=`<video src="${videoUrl}" controls class='rounded-lg w-full'></video>`;
   gallery.prepend(card);
-  alert('Video generated! (Connect to backend for real videos)');
+  alert('Video generated! Connect to backend for real videos');
 }
 </script>
 </body>
