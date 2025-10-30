@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kairah Studio</title>
 <style>
-  body { margin:0; font-family:'Arial',sans-serif; background-color:#000; color:#E7D2CB; }
+  body { margin:0; font-family:'Arial', sans-serif; background-color:#000; color:#E7D2CB; }
   a { color:#D4AF37; text-decoration:none; }
-  h1,h2,h3 { color:#D4AF37; }
+  h1,h2,h3 { color:#3D2C41; }
   .container { width:90%; max-width:1200px; margin:0 auto; padding:20px; }
-  .btn { background-color:#D4AF37; color:#000; border:none; padding:10px 20px; cursor:pointer; margin-top:10px; transition:0.3s; font-weight:bold; border-radius:8px; }
+  .btn { background-color:#D4AF37; color:#000; border:none; padding:10px 20px; cursor:pointer; margin-top:10px; transition:0.3s; font-weight:bold; }
   .btn:hover { background-color:#3D2C41; color:#D4AF37; }
   #hero { text-align:center; padding:80px 20px; }
-  #hero h1 { font-size:3rem; margin-bottom:20px; }
+  #hero h1 { font-size:3rem; margin-bottom:20px; color:#D4AF37; }
   #hero p { font-size:1.2rem; margin-bottom:30px; }
   .plans { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-bottom:50px; }
-  .plan-card { background:#111; border:2px solid #D4AF37; border-radius:15px; padding:20px; width:250px; transition:0.3s; }
+  .plan-card { background:#111; border:2px solid #D4AF37; border-radius:15px; padding:20px; width:260px; transition:0.3s; }
   .plan-card:hover { border-color:#3D2C41; box-shadow:0 0 15px #D4AF37; }
   .plan-card h3 { text-align:center; margin-bottom:10px; }
   .plan-price { font-size:1.5rem; text-align:center; margin-bottom:15px; }
@@ -23,74 +23,131 @@
   .plan-features li { margin-bottom:8px; }
   .payment-methods { display:none; margin-top:10px; background:#222; padding:10px; border-radius:10px; }
   .payment-methods div { margin-bottom:8px; }
-  #video-section { margin-bottom:50px; text-align:center; }
-  #userGallery { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; justify-content:center; }
-  .video-thumb { border:2px solid #444; border-radius:10px; transition:0.3s; }
-  .video-thumb.fame { border-color:#D4AF37; box-shadow:0 0 10px #D4AF37; }
-  #loading { display:none; color:#D4AF37; font-weight:bold; margin-top:10px; }
-  .faq-item { border-bottom:1px solid #333; padding:10px 0; cursor:pointer; transition:0.3s; }
-  .faq-item:hover { color:#D4AF37; }
+  #video-section { margin-bottom:50px; }
+  #prompt { width:100%; padding:15px; font-size:1rem; border-radius:10px; border:none; margin-bottom:10px; }
+  #userGallery { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+  .faq-item { border-bottom:1px solid #333; padding:10px 0; cursor:pointer; }
   .faq-answer { display:none; padding-top:5px; color:#D4AF37; }
-  #settings-section button { display:block; margin-bottom:10px; }
+  .affiliate-card { background:#111; border:2px solid #D4AF37; border-radius:15px; padding:15px; margin-bottom:20px; }
+  form input, form textarea { width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:none; }
+  form textarea { resize:vertical; min-height:80px; }
   @media(max-width:768px){ .plans{ flex-direction:column; align-items:center; } }
 </style>
 </head>
 <body>
 
+<!-- ===== HEADER ===== -->
+<header class="container" style="display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#000;z-index:1000;padding:10px 0;">
+  <h2 style="color:#D4AF37;">Kairah Studio</h2>
+  <div>
+    <button class="btn" onclick="showSignup()">Signup</button>
+    <button class="btn" onclick="showLogin()">Login</button>
+  </div>
+</header>
+
 <!-- ===== HERO ===== -->
 <section id="hero">
   <h1>Kairah Studio</h1>
-  <p>Create cinematic AI videos in seconds — short clips or full cinematic productions.</p>
+  <p>Create cinematic AI videos instantly — short clips or full cinematic productions.</p>
   <button class="btn" onclick="scrollToSection('video-section')">Start Creating</button>
+  <button class="btn" onclick="scrollToSection('plans-section')">View Plans</button>
 </section>
 
 <!-- ===== PLANS ===== -->
 <section id="plans-section" class="container">
   <h2>Our Plans</h2>
   <div class="plans">
+    <!-- Free -->
     <div class="plan-card">
       <h3>Free</h3>
       <div class="plan-price">$0 / mo</div>
-      <ul class="plan-features"><li>1 Video / Month</li><li>Max Length 6s</li></ul>
+      <ul class="plan-features">
+        <li>1 Video / Month</li>
+        <li>Max Length 6s</li>
+        <li>No Fame Booster</li>
+      </ul>
       <button class="btn" onclick="togglePayment('free-payments')">Choose Plan</button>
       <div class="payment-methods" id="free-payments">
-        <div>M-Pesa</div><div>Wise</div><div>PayPal</div><div>MasterCard</div><div>Visa</div>
+        <div>M-Pesa</div>
+        <div>Wise</div>
+        <div>PayPal</div>
+        <div>MasterCard</div>
+        <div>Visa</div>
       </div>
     </div>
+
+    <!-- Pro -->
     <div class="plan-card">
       <h3>Pro</h3>
       <div class="plan-price">$19 / mo</div>
-      <ul class="plan-features"><li>10 Videos / Month</li><li>Max Length 60s</li></ul>
+      <ul class="plan-features">
+        <li>10 Videos / Month</li>
+        <li>Max Length 60s</li>
+        <li>No Fame Booster</li>
+      </ul>
       <button class="btn" onclick="togglePayment('pro-payments')">Choose Plan</button>
       <div class="payment-methods" id="pro-payments">
-        <div>M-Pesa</div><div>Wise</div><div>PayPal</div><div>MasterCard</div><div>Visa</div>
+        <div>M-Pesa</div>
+        <div>Wise</div>
+        <div>PayPal</div>
+        <div>MasterCard</div>
+        <div>Visa</div>
       </div>
     </div>
+
+    <!-- Diamond -->
     <div class="plan-card">
       <h3>Diamond</h3>
       <div class="plan-price">$49 / mo</div>
-      <ul class="plan-features"><li>Unlimited Videos</li><li>Max Length 180s</li></ul>
+      <ul class="plan-features">
+        <li>Unlimited Videos</li>
+        <li>Max Length 180s</li>
+        <li>Includes Fame Booster ($9)</li>
+      </ul>
       <button class="btn" onclick="togglePayment('diamond-payments')">Choose Plan</button>
       <div class="payment-methods" id="diamond-payments">
-        <div>M-Pesa</div><div>Wise</div><div>PayPal</div><div>MasterCard</div><div>Visa</div>
+        <div>M-Pesa</div>
+        <div>Wise</div>
+        <div>PayPal</div>
+        <div>MasterCard</div>
+        <div>Visa</div>
       </div>
     </div>
+
+    <!-- Cinematic -->
     <div class="plan-card">
       <h3>Cinematic</h3>
       <div class="plan-price">$99 / mo</div>
-      <ul class="plan-features"><li>Unlimited Videos</li><li>Max Length 300s</li></ul>
+      <ul class="plan-features">
+        <li>Unlimited Videos</li>
+        <li>Max Length 300s</li>
+        <li>Includes Fame Booster ($9)</li>
+      </ul>
       <button class="btn" onclick="togglePayment('cinematic-payments')">Choose Plan</button>
       <div class="payment-methods" id="cinematic-payments">
-        <div>M-Pesa</div><div>Wise</div><div>PayPal</div><div>MasterCard</div><div>Visa</div>
+        <div>M-Pesa</div>
+        <div>Wise</div>
+        <div>PayPal</div>
+        <div>MasterCard</div>
+        <div>Visa</div>
       </div>
     </div>
+
+    <!-- Lifetime -->
     <div class="plan-card">
       <h3>Lifetime</h3>
       <div class="plan-price">$500 one-time</div>
-      <ul class="plan-features"><li>Unlimited Videos</li><li>Unlimited Length</li></ul>
+      <ul class="plan-features">
+        <li>Unlimited Videos & Length</li>
+        <li>Includes Fame Booster ($9)</li>
+      </ul>
       <button class="btn" onclick="togglePayment('lifetime-payments')">Choose Plan</button>
       <div class="payment-methods" id="lifetime-payments">
-        <div>M-Pesa</div><div>Wise</div><div>PayPal</div><div>MasterCard</div><div>Visa</div>
+        <div>M-Pesa</div>
+        <div>Wise</div>
+        <div>PayPal</div>
+        <div>MasterCard</div>
+        <div>Visa</div>
       </div>
     </div>
   </div>
@@ -99,61 +156,96 @@
 <!-- ===== VIDEO GENERATION ===== -->
 <section id="video-section" class="container">
   <h2>Generate Your Video</h2>
-  <input type="text" id="prompt" placeholder="Enter your prompt here..." style="width:70%; max-width:500px;">
+  <input type="text" id="prompt" placeholder="Enter cinematic prompt here...">
   <button class="btn" onclick="generateVideo()">Prompt Magic + Generate</button>
-  <label style="margin-left:10px;"><input type="checkbox" id="fame"> Fame Booster</label>
-  <div id="loading">Generating video... please wait</div>
+  <label><input type="checkbox" id="fame"> Fame Booster ($9 per video)</label>
   <div id="userGallery"></div>
+</section>
+
+<!-- ===== AFFILIATE DASHBOARD ===== -->
+<section id="affiliate-section" class="container">
+  <h2>Affiliate Dashboard</h2>
+  <div class="affiliate-card">
+    <p><strong>Referral Code:</strong> KSTUDIO123</p>
+    <p><strong>Commission:</strong> 30% per referred payment</p>
+    <p><strong>Bonus:</strong> $500 for 100 lifetime sales</p>
+    <p><strong>Referred Users:</strong> user1@example.com, user2@example.com</p>
+  </div>
 </section>
 
 <!-- ===== FAQ ===== -->
 <section id="faq-section" class="container">
   <h2>Frequently Asked Questions</h2>
-  <div class="faq-item" onclick="toggleFAQ(this)">What is Kairah Studio?<div class="faq-answer">Kairah Studio is an AI-powered platform to generate cinematic videos instantly.</div></div>
-  <div class="faq-item" onclick="toggleFAQ(this)">What is Prompt Magic?<div class="faq-answer">Prompt Magic improves your input to generate higher-quality videos.</div></div>
-  <div class="faq-item" onclick="toggleFAQ(this)">What is Fame Booster?<div class="faq-answer">Fame Booster optionally gives your video a viral boost within our network.</div></div>
-  <div class="faq-item" onclick="toggleFAQ(this)">Can I upgrade my plan anytime?<div class="faq-answer">Yes, you can upgrade or change plans anytime.</div></div>
-  <div class="faq-item" onclick="toggleFAQ(this)">How do payments work?<div class="faq-answer">All payments are processed via M-Pesa, Wise, PayPal, MasterCard, or Visa.</div></div>
-  <div class="faq-item" onclick="toggleFAQ(this)">How does the referral system work?<div class="faq-answer">Share your referral code and earn affiliate commissions based on user payments.</div></div>
-  <div class="faq-item" onclick="toggleFAQ(this)">Is my data safe?<div class="faq-answer">Yes, we protect your data and comply with privacy standards.</div></div>
-  <div class="faq-item" onclick="toggleFAQ(this)">Can I use Kairah Studio on mobile?<div class="faq-answer">Yes, the site is fully responsive and mobile-friendly.</div></div>
-  <div class="faq-item" onclick="toggleFAQ(this)">Are videos downloadable?<div class="faq-answer">Yes, depending on your plan, you can download videos directly.</div></div>
-  <div class="faq-item" onclick="toggleFAQ(this)">Who can I contact for support?<div class="faq-answer">Email us at <a href="mailto:keishapoa@gmail.com">keishapoa@gmail.com</a></div></div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    What is Kairah Studio?
+    <div class="faq-answer">Kairah Studio is an AI-powered platform that allows you to generate cinematic videos instantly. You can create short clips, social media content, or full cinematic productions with just a few clicks.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    What is Prompt Magic?
+    <div class="faq-answer">Prompt Magic refines your input text to produce higher quality, visually stunning videos. It uses advanced AI algorithms to interpret your ideas creatively.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    How does Fame Booster work?
+    <div class="faq-answer">Fame Booster is an optional feature that boosts the visibility of your generated video. For $9 per video, your creation gets additional AI optimization and placement within our viral network. It is included automatically for Diamond, Cinematic, and Lifetime plans.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    How does the referral system work?
+    <div class="faq-answer">Share your referral code with others. You earn 30% commission on all payments made by users who sign up with your code. Once you reach 100 lifetime sales, you also get a $500 bonus.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Can I upgrade my plan anytime?
+    <div class="faq-answer">Yes, you can upgrade or change your plan anytime through the Settings panel.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Are my payments safe?
+    <div class="faq-answer">All payments are securely processed through M-Pesa, Wise, PayPal, MasterCard, and Visa. We do not store card data directly.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Can I get a refund?
+    <div class="faq-answer">No, all payments are final and non-refundable. This policy is non-negotiable.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Is my data secure?
+    <div class="faq-answer">Yes, we store and process your data in compliance with privacy regulations. Data is only used to enhance your experience.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Can I use Kairah Studio on mobile?
+    <div class="faq-answer">Yes, the platform is fully responsive and mobile-friendly.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Who can I contact for support?
+    <div class="faq-answer">Email us at <a href="mailto:keishapoa@gmail.com">keishapoa@gmail.com</a></div>
+  </div>
 </section>
 
 <!-- ===== SETTINGS & PRIVACY ===== -->
 <section id="settings-section" class="container">
   <h2>Settings & Privacy</h2>
-  <p>Manage your profile, plan, and privacy settings.</p>
+  <p>Manage your profile, plan, and privacy settings. Note that all payments are final and non-refundable.</p>
   <button class="btn" onclick="alert('Profile update coming soon')">Update Profile</button>
   <button class="btn" onclick="alert('Plan management coming soon')">Manage Plan</button>
   <button class="btn" onclick="alert('Privacy settings coming soon')">Privacy Settings</button>
+  <p style="margin-top:20px;">Privacy & Disclaimer: We respect your privacy. Your data is collected only to improve your experience. All AI-generated content is your responsibility. Payments are final. No refunds will be issued under any circumstances.</p>
 </section>
 
 <script>
 function scrollToSection(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
 function togglePayment(id){ const elem=document.getElementById(id); elem.style.display=(elem.style.display==='block')?'none':'block'; }
-function toggleFAQ(elem){ const answer=elem.querySelector('.faq-answer'); document.querySelectorAll('.faq-answer').forEach(a=>{ if(a!==answer)a.style.display='none'; }); answer.style.display=(answer.style.display==='block')?'none':'block'; }
+function toggleFAQ(elem){ const answer=elem.querySelector('.faq-answer'); answer.style.display=(answer.style.display==='block')?'none':'block'; }
+
+function showSignup(){ alert('Signup modal coming soon'); }
+function showLogin(){ alert('Login modal coming soon'); }
 
 async function generateVideo(){
   const prompt=document.getElementById('prompt').value;
   const fame=document.getElementById('fame').checked;
   const email=prompt('Enter your email'); 
   if(!prompt||!email){ alert('Enter prompt and email'); return; }
-  const loading=document.getElementById('loading'); loading.style.display='block';
-  try{
-    const res=await fetch('/api/generate-video',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({user_email:email,prompt:prompt,fame_booster:fame})
-    });
-    const data=await res.json(); loading.style.display='none';
-    const gallery=document.getElementById('userGallery');
-    const videoElem=document.createElement('video'); 
-    videoElem.src=data.video_url; videoElem.controls=true; videoElem.width=300; videoElem.className='video-thumb';
-    if(data.fame_booster) videoElem.classList.add('fame');
-    gallery.prepend(videoElem);
-  }catch(err){ loading.style.display='none'; alert('Error generating video'); }
+  const res=await fetch('/api/generate-video',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_email:email,prompt:prompt,fame_booster:fame})});
+  const data=await res.json();
+  const gallery=document.getElementById('userGallery');
+  const videoElem=document.createElement('video');
+  videoElem.src=data.video_url; videoElem.controls=true; videoElem.width=300; gallery.prepend(videoElem);
 }
 </script>
 
