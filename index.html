@@ -7,12 +7,12 @@
 <style>
   body { margin:0; font-family:'Arial',sans-serif; background-color:#000; color:#E7D2CB; }
   a { color:#D4AF37; text-decoration:none; }
-  h1,h2,h3 { color:#3D2C41; }
+  h1,h2,h3 { color:#D4AF37; }
   .container { width:90%; max-width:1200px; margin:0 auto; padding:20px; }
   .btn { background-color:#D4AF37; color:#000; border:none; padding:10px 20px; cursor:pointer; margin-top:10px; transition:0.3s; font-weight:bold; border-radius:8px; }
   .btn:hover { background-color:#3D2C41; color:#D4AF37; }
   #hero { text-align:center; padding:80px 20px; }
-  #hero h1 { font-size:3rem; margin-bottom:20px; color:#D4AF37; }
+  #hero h1 { font-size:3rem; margin-bottom:20px; }
   #hero p { font-size:1.2rem; margin-bottom:30px; }
   .plans { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-bottom:50px; }
   .plan-card { background:#111; border:2px solid #D4AF37; border-radius:15px; padding:20px; width:250px; transition:0.3s; }
@@ -41,14 +41,7 @@
 <section id="hero">
   <h1>Kairah Studio</h1>
   <p>Create cinematic AI videos in seconds — short clips or full cinematic productions.</p>
-  <button class="btn" onclick="scrollToSection('demo-section')">View Demos</button>
   <button class="btn" onclick="scrollToSection('video-section')">Start Creating</button>
-</section>
-
-<!-- ===== DEMO VIDEO GALLERY ===== -->
-<section id="demo-section" class="container">
-  <h2>Explore Sample Videos</h2>
-  <div id="demoGallery" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;"></div>
 </section>
 
 <!-- ===== PLANS ===== -->
@@ -145,31 +138,23 @@ function toggleFAQ(elem){ const answer=elem.querySelector('.faq-answer'); docume
 async function generateVideo(){
   const prompt=document.getElementById('prompt').value;
   const fame=document.getElementById('fame').checked;
-  const email=prompt('Enter your email for testing'); 
+  const email=prompt('Enter your email'); 
   if(!prompt||!email){ alert('Enter prompt and email'); return; }
   const loading=document.getElementById('loading'); loading.style.display='block';
   try{
-    const res=await fetch('/api/generate-video',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_email:email,prompt:prompt,fame_booster:fame})});
+    const res=await fetch('/api/generate-video',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({user_email:email,prompt:prompt,fame_booster:fame})
+    });
     const data=await res.json(); loading.style.display='none';
     const gallery=document.getElementById('userGallery');
-    const videoElem=document.createElement('video'); videoElem.src=data.video_url; videoElem.controls=true; videoElem.width=300; videoElem.className='video-thumb'; if(data.fame_booster) videoElem.classList.add('fame'); gallery.prepend(videoElem);
+    const videoElem=document.createElement('video'); 
+    videoElem.src=data.video_url; videoElem.controls=true; videoElem.width=300; videoElem.className='video-thumb';
+    if(data.fame_booster) videoElem.classList.add('fame');
+    gallery.prepend(videoElem);
   }catch(err){ loading.style.display='none'; alert('Error generating video'); }
 }
-
-// --- Load Demo Videos ---
-async function loadDemoVideos(){
-  const demoGallery=document.getElementById('demoGallery');
-  const sampleUsers=["demo1@kairah.com","demo2@kairah.com","demo3@kairah.com"];
-  for(const email of sampleUsers){
-    try{
-      const res=await fetch('/api/generate-video',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_email:email,prompt:"Sample cinematic demo video",fame_booster:Math.random()>0.5})});
-      const data=await res.json();
-      const videoElem=document.createElement('video'); videoElem.src=data.video_url; videoElem.controls=true; videoElem.width=300; videoElem.className='video-thumb';
-      if(data.fame_booster) videoElem.classList.add('fame'); demoGallery.appendChild(videoElem);
-    }catch(err){ console.error("Demo video failed",err); }
-  }
-}
-window.addEventListener('DOMContentLoaded', loadDemoVideos);
 </script>
 
 </body>
