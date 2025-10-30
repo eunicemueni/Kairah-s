@@ -21,8 +21,8 @@
   .plan-price { font-size:1.5rem; text-align:center; margin-bottom:15px; }
   .plan-features { list-style:none; padding:0; margin:0 0 15px 0; }
   .plan-features li { margin-bottom:8px; }
-  .payment-methods { display:none; margin-top:10px; background:#222; padding:10px; border-radius:10px; }
-  .payment-methods div { margin-bottom:8px; }
+  .payment-icons { display:flex; justify-content:center; gap:8px; margin-top:10px; }
+  .payment-icons img { width:40px; height:auto; }
   #video-section { margin-bottom:50px; }
   #prompt { width:100%; padding:15px; font-size:1rem; border-radius:10px; border:none; margin-bottom:10px; }
   #userGallery { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
@@ -31,14 +31,18 @@
   .affiliate-card { background:#111; border:2px solid #D4AF37; border-radius:15px; padding:15px; margin-bottom:20px; }
   form input, form textarea { width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:none; }
   form textarea { resize:vertical; min-height:80px; }
-  @media(max-width:768px){ .plans{ flex-direction:column; align-items:center; } }
+  /* KS logo on left edge */
+  #logo-left { position:fixed; left:0; top:50%; transform:translateY(-50%); font-size:4rem; font-weight:bold; color:#D4AF37; z-index:1000; }
+  @media(max-width:768px){ .plans{ flex-direction:column; align-items:center; } #logo-left{ display:none; } }
 </style>
 </head>
 <body>
 
+<!-- KS LOGO LEFT EDGE -->
+<div id="logo-left">KS</div>
+
 <!-- ===== HEADER ===== -->
-<header class="container" style="display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#000;z-index:1000;padding:10px 0;">
-  <h2 style="color:#D4AF37;">Kairah Studio</h2>
+<header class="container" style="display:flex;justify-content:flex-end;align-items:center;position:sticky;top:0;background:#000;z-index:1000;padding:10px 0;">
   <div>
     <button class="btn" onclick="showSignup()">Signup</button>
     <button class="btn" onclick="showLogin()">Login</button>
@@ -66,13 +70,11 @@
         <li>Max Length 6s</li>
         <li>No Fame Booster</li>
       </ul>
-      <button class="btn" onclick="togglePayment('free-payments')">Choose Plan</button>
-      <div class="payment-methods" id="free-payments">
-        <div>M-Pesa</div>
-        <div>Wise</div>
-        <div>PayPal</div>
-        <div>MasterCard</div>
-        <div>Visa</div>
+      <div class="payment-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/M-Pesa_Logo.svg" alt="M-Pesa">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/PayPal_2014_logo.svg" alt="PayPal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Mastercard_logo.svg" alt="MasterCard">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.svg" alt="Visa">
       </div>
     </div>
 
@@ -85,13 +87,12 @@
         <li>Max Length 60s</li>
         <li>No Fame Booster</li>
       </ul>
-      <button class="btn" onclick="togglePayment('pro-payments')">Choose Plan</button>
-      <div class="payment-methods" id="pro-payments">
-        <div>M-Pesa</div>
-        <div>Wise</div>
-        <div>PayPal</div>
-        <div>MasterCard</div>
-        <div>Visa</div>
+      <div class="payment-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/M-Pesa_Logo.svg" alt="M-Pesa">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Wise_Logo.svg" alt="Wise">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/PayPal_2014_logo.svg" alt="PayPal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Mastercard_logo.svg" alt="MasterCard">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.svg" alt="Visa">
       </div>
     </div>
 
@@ -104,13 +105,12 @@
         <li>Max Length 180s</li>
         <li>Includes Fame Booster ($9)</li>
       </ul>
-      <button class="btn" onclick="togglePayment('diamond-payments')">Choose Plan</button>
-      <div class="payment-methods" id="diamond-payments">
-        <div>M-Pesa</div>
-        <div>Wise</div>
-        <div>PayPal</div>
-        <div>MasterCard</div>
-        <div>Visa</div>
+      <div class="payment-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/M-Pesa_Logo.svg" alt="M-Pesa">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Wise_Logo.svg" alt="Wise">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/PayPal_2014_logo.svg" alt="PayPal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Mastercard_logo.svg" alt="MasterCard">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.svg" alt="Visa">
       </div>
     </div>
 
@@ -123,13 +123,12 @@
         <li>Max Length 300s</li>
         <li>Includes Fame Booster ($9)</li>
       </ul>
-      <button class="btn" onclick="togglePayment('cinematic-payments')">Choose Plan</button>
-      <div class="payment-methods" id="cinematic-payments">
-        <div>M-Pesa</div>
-        <div>Wise</div>
-        <div>PayPal</div>
-        <div>MasterCard</div>
-        <div>Visa</div>
+      <div class="payment-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/M-Pesa_Logo.svg" alt="M-Pesa">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Wise_Logo.svg" alt="Wise">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/PayPal_2014_logo.svg" alt="PayPal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Mastercard_logo.svg" alt="MasterCard">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.svg" alt="Visa">
       </div>
     </div>
 
@@ -141,13 +140,12 @@
         <li>Unlimited Videos & Length</li>
         <li>Includes Fame Booster ($9)</li>
       </ul>
-      <button class="btn" onclick="togglePayment('lifetime-payments')">Choose Plan</button>
-      <div class="payment-methods" id="lifetime-payments">
-        <div>M-Pesa</div>
-        <div>Wise</div>
-        <div>PayPal</div>
-        <div>MasterCard</div>
-        <div>Visa</div>
+      <div class="payment-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/M-Pesa_Logo.svg" alt="M-Pesa">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Wise_Logo.svg" alt="Wise">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/PayPal_2014_logo.svg" alt="PayPal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Mastercard_logo.svg" alt="MasterCard">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.svg" alt="Visa">
       </div>
     </div>
   </div>
@@ -158,94 +156,90 @@
   <h2>Generate Your Video</h2>
   <input type="text" id="prompt" placeholder="Enter cinematic prompt here...">
   <button class="btn" onclick="generateVideo()">Prompt Magic + Generate</button>
-  <label><input type="checkbox" id="fame"> Fame Booster ($9 per video)</label>
+  <label><input type="checkbox" id="fame"> Fame Booster ($9) - available for Diamond/Cinematic/Lifetime</label>
   <div id="userGallery"></div>
-</section>
-
-<!-- ===== AFFILIATE DASHBOARD ===== -->
-<section id="affiliate-section" class="container">
-  <h2>Affiliate Dashboard</h2>
-  <div class="affiliate-card">
-    <p><strong>Referral Code:</strong> KSTUDIO123</p>
-    <p><strong>Commission:</strong> 30% per referred payment</p>
-    <p><strong>Bonus:</strong> $500 for 100 lifetime sales</p>
-    <p><strong>Referred Users:</strong> user1@example.com, user2@example.com</p>
-  </div>
 </section>
 
 <!-- ===== FAQ ===== -->
 <section id="faq-section" class="container">
-  <h2>Frequently Asked Questions</h2>
-  <div class="faq-item" onclick="toggleFAQ(this)">
-    What is Kairah Studio?
-    <div class="faq-answer">Kairah Studio is an AI-powered platform that allows you to generate cinematic videos instantly. You can create short clips, social media content, or full cinematic productions with just a few clicks.</div>
+  <h2>FAQ</h2>
+  <div class="faq-item" onclick="toggleAnswer(this)">
+    How does the Fame Booster work?
+    <div class="faq-answer">Fame Booster amplifies your video reach, visibility, and virality on social media platforms. $9 standalone or included in Diamond/Cinematic/Lifetime plans.</div>
   </div>
-  <div class="faq-item" onclick="toggleFAQ(this)">
-    What is Prompt Magic?
-    <div class="faq-answer">Prompt Magic refines your input text to produce higher quality, visually stunning videos. It uses advanced AI algorithms to interpret your ideas creatively.</div>
+  <div class="faq-item" onclick="toggleAnswer(this)">
+    How many videos can I generate per plan?
+    <div class="faq-answer">Free: 1 / month, Pro: 10 / month, Diamond/Cinematic/Lifetime: unlimited.</div>
   </div>
-  <div class="faq-item" onclick="toggleFAQ(this)">
-    How does Fame Booster work?
-    <div class="faq-answer">Fame Booster is an optional feature that boosts the visibility of your generated video. For $9 per video, your creation gets additional AI optimization and placement within our viral network. It is included automatically for Diamond, Cinematic, and Lifetime plans.</div>
-  </div>
-  <div class="faq-item" onclick="toggleFAQ(this)">
-    How does the referral system work?
-    <div class="faq-answer">Share your referral code with others. You earn 30% commission on all payments made by users who sign up with your code. Once you reach 100 lifetime sales, you also get a $500 bonus.</div>
-  </div>
-  <div class="faq-item" onclick="toggleFAQ(this)">
-    Can I upgrade my plan anytime?
-    <div class="faq-answer">Yes, you can upgrade or change your plan anytime through the Settings panel.</div>
-  </div>
-  <div class="faq-item" onclick="toggleFAQ(this)">
-    Are my payments safe?
-    <div class="faq-answer">All payments are securely processed through M-Pesa, Wise, PayPal, MasterCard, and Visa. We do not store card data directly.</div>
-  </div>
-  <div class="faq-item" onclick="toggleFAQ(this)">
+  <div class="faq-item" onclick="toggleAnswer(this)">
     Can I get a refund?
-    <div class="faq-answer">No, all payments are final and non-refundable. This policy is non-negotiable.</div>
+    <div class="faq-answer">No refunds. All sales are final. Non-negotiable policy.</div>
   </div>
-  <div class="faq-item" onclick="toggleFAQ(this)">
-    Is my data secure?
-    <div class="faq-answer">Yes, we store and process your data in compliance with privacy regulations. Data is only used to enhance your experience.</div>
+  <div class="faq-item" onclick="toggleAnswer(this)">
+    How does the affiliate system work?
+    <div class="faq-answer">Share your referral code. You earn 30% commission from referred user payments. Bonus $500 when lifetime referrals reach 100 sales.</div>
   </div>
-  <div class="faq-item" onclick="toggleFAQ(this)">
-    Can I use Kairah Studio on mobile?
-    <div class="faq-answer">Yes, the platform is fully responsive and mobile-friendly.</div>
+  <div class="faq-item" onclick="toggleAnswer(this)">
+    Is my data safe?
+    <div class="faq-answer">We use industry-standard security practices. Personal info is never shared without consent.</div>
   </div>
-  <div class="faq-item" onclick="toggleFAQ(this)">
-    Who can I contact for support?
-    <div class="faq-answer">Email us at <a href="mailto:keishapoa@gmail.com">keishapoa@gmail.com</a></div>
+  <div class="faq-item" onclick="toggleAnswer(this)">
+    Which payment methods are supported?
+    <div class="faq-answer">M-Pesa, Wise, PayPal, Visa, MasterCard — all visible in plan cards and settings/privacy.</div>
+  </div>
+  <div class="faq-item" onclick="toggleAnswer(this)">
+    Can I upgrade my plan anytime?
+    <div class="faq-answer">Yes, you can upgrade anytime. Downgrades take effect next billing cycle.</div>
+  </div>
+  <div class="faq-item" onclick="toggleAnswer(this)">
+    What is the maximum video length?
+    <div class="faq-answer">Free: 6s, Pro: 60s, Diamond: 180s, Cinematic: 300s, Lifetime: unlimited.</div>
+  </div>
+  <div class="faq-item" onclick="toggleAnswer(this)">
+    Are my videos stored?
+    <div class="faq-answer">Yes, your generated videos are stored securely and accessible anytime.</div>
+  </div>
+  <div class="faq-item" onclick="toggleAnswer(this)">
+    How do I contact support?
+    <div class="faq-answer">Email <a href="mailto:keishapoa@gmail.com">keishapoa@gmail.com</a></div>
   </div>
 </section>
 
 <!-- ===== SETTINGS & PRIVACY ===== -->
-<section id="settings-section" class="container">
+<section id="settings-privacy" class="container">
   <h2>Settings & Privacy</h2>
-  <p>Manage your profile, plan, and privacy settings. Note that all payments are final and non-refundable.</p>
-  <button class="btn" onclick="alert('Profile update coming soon')">Update Profile</button>
-  <button class="btn" onclick="alert('Plan management coming soon')">Manage Plan</button>
-  <button class="btn" onclick="alert('Privacy settings coming soon')">Privacy Settings</button>
-  <p style="margin-top:20px;">Privacy & Disclaimer: We respect your privacy. Your data is collected only to improve your experience. All AI-generated content is your responsibility. Payments are final. No refunds will be issued under any circumstances.</p>
+  <p>All users can view payment methods without logging in:</p>
+  <div class="payment-icons">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/M-Pesa_Logo.svg" alt="M-Pesa">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Wise_Logo.svg" alt="Wise">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/PayPal_2014_logo.svg" alt="PayPal">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Mastercard_logo.svg" alt="MasterCard">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.svg" alt="Visa">
+  </div>
+  <h3>Privacy Policy</h3>
+  <p>We collect minimal data to operate the platform. Your email and generated content are stored securely. No personal info is shared without consent. By using Kairah Studio, you accept our non-refundable policy.</p>
+  <h3>Disclaimer</h3>
+  <p>All content generated is the responsibility of the user. Kairah Studio is not liable for misuse of generated content. Payments are non-refundable and non-negotiable.</p>
 </section>
 
 <script>
 function scrollToSection(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
-function togglePayment(id){ const elem=document.getElementById(id); elem.style.display=(elem.style.display==='block')?'none':'block'; }
-function toggleFAQ(elem){ const answer=elem.querySelector('.faq-answer'); answer.style.display=(answer.style.display==='block')?'none':'block'; }
+function toggleAnswer(el){ const ans = el.querySelector('.faq-answer'); ans.style.display = (ans.style.display==='block')?'none':'block'; }
 
-function showSignup(){ alert('Signup modal coming soon'); }
-function showLogin(){ alert('Login modal coming soon'); }
+function showSignup(){ alert('Signup modal placeholder'); }
+function showLogin(){ alert('Login modal placeholder'); }
 
-async function generateVideo(){
-  const prompt=document.getElementById('prompt').value;
-  const fame=document.getElementById('fame').checked;
-  const email=prompt('Enter your email'); 
-  if(!prompt||!email){ alert('Enter prompt and email'); return; }
-  const res=await fetch('/api/generate-video',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_email:email,prompt:prompt,fame_booster:fame})});
-  const data=await res.json();
-  const gallery=document.getElementById('userGallery');
-  const videoElem=document.createElement('video');
-  videoElem.src=data.video_url; videoElem.controls=true; videoElem.width=300; gallery.prepend(videoElem);
+function generateVideo(){
+  const prompt = document.getElementById('prompt').value;
+  const fame = document.getElementById('fame').checked;
+  if(!prompt){ alert('Enter a prompt'); return; }
+  const videoId = 'video_'+Date.now();
+  const gallery = document.getElementById('userGallery');
+  const videoEl = document.createElement('video');
+  videoEl.src='https://cdn.kairahstudio.com/mock_videos/'+videoId+'.mp4';
+  videoEl.controls=true; videoEl.width=300; videoEl.style.border='2px solid #D4AF37';
+  gallery.appendChild(videoEl);
+  alert('Video generated! Fame Booster: '+(fame?'Yes':'No'));
 }
 </script>
 
